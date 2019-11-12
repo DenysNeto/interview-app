@@ -1,0 +1,31 @@
+{
+
+    "presets": [
+        "@zeit/next-typescript/babel"
+    ],
+    "plugins": [
+        [
+            "inline-dotenv"
+        ],
+        [
+            "@babel/plugin-proposal-decorators",
+            {
+                "legacy": true
+            }
+        ],
+        [
+            "@babel/plugin-proposal-class-properties",
+            {
+                "loose": true
+            }
+        ],
+        [
+            "styled-components",
+            {
+                "ssr": true,
+                "displayName": true,
+                "preprocess": false
+            }
+        ]
+    ]
+}

@@ -1,36 +1,51 @@
 {
-  "name": "interwiev-app",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@types/jest": "24.0.22",
-    "@types/node": "12.12.7",
-    "@types/react": "16.9.11",
-    "@types/react-dom": "16.9.4",
-    "react": "^16.11.0",
-    "react-dom": "^16.11.0",
-    "react-scripts": "3.2.0",
-    "typescript": "3.7.2"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "name": "interwiev-app",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@types/lodash": "^4.14.146",
+        "@types/node": "^12.12.7",
+        "@types/react": "16.9.11",
+        "@types/react-dom": "16.9.4",
+        "history": "^4.10.1",
+        "lodash": "^4.17.15",
+        "mobx": "^5.9.0",
+        "mobx-react": "^5.4.3",
+        "react": "^16.11.0",
+        "react-dom": "^16.11.0",
+        "react-icons": "^3.8.0",
+        "react-modal": "^3.11.1",
+        "react-router-dom": "^4.1.2",
+        "react-scripts": "3.2.0",
+        "styled-components": "^4.4.1",
+        "typescript": "3.7.2"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.7.2",
+        "@babel/preset-env": "^7.7.1",
+        "@types/styled-components": "^4.4.0",
+        "babel-loader": "^8.0.6",
+        "webpack": "4.41.0"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
 }
