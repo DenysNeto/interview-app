@@ -5,7 +5,7 @@ import { inject, observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 
 const PostCardDetails = ( props: IPostCardDetails ) => {
-    const desc_details = `${props.timestamp} by ${props.username}`;
+    const desc_details = `${new Date(props.timestamp).toLocaleString()} by ${props.username}`;
     
     const onClickHandler = () => {
         props.store.setCurrentIndexComments ( props.index );

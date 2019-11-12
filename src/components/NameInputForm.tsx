@@ -48,7 +48,7 @@ class NameInputForm extends Component<IProps> {
                     <InputCustom type='text' onChange={this.saveNameChanges} placeholder="Name"/>
                     
                     <Link style={{ marginTop: '1rem', display: 'flex', justifyContent:'flex-end'}} to={'/main_page'}>
-                        <button style={{textDecoration: 'none'}}  disabled={!this.name} onClick={this.saveUsersName} type="submit">Submit</button>
+                        <button style={{textDecoration: 'none', cursor:'pointer'}}  disabled={!this.name} onClick={this.saveUsersName} type="submit">Submit</button>
                     </Link>
                 </form>
             </div>
