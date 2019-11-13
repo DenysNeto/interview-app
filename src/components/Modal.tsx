@@ -73,7 +73,7 @@ const ModalCustom = ( { store, type, comment_id, id_prop }: IModalCustom ) => {
                             <textarea autoFocus rows={4} onChange={onTextChangeHandler}/>
                             <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
                                 <CustomBtn onClick={onCloseClickHandler}>Cancel</CustomBtn>
-                                <CustomBtn disabled={!temp_value} onClick={onSubmitSubbuttonHandler}>Submit</CustomBtn>
+                                <CustomBtn onClick={onSubmitSubbuttonHandler}>Submit</CustomBtn>
                             </div>
                         </div>
                     </Modal>
@@ -104,7 +104,7 @@ const ModalCustom = ( { store, type, comment_id, id_prop }: IModalCustom ) => {
                             <textarea rows={4} autoFocus onChange={onTextChangeHandler}/>
                             <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
                                 <CustomBtn onClick={onCloseClickHandler}>Cancel</CustomBtn>
-                                <CustomBtn disabled={!temp_value} onClick={onSubmitHandler}>Submit</CustomBtn>
+                                <CustomBtn onClick={onSubmitHandler}>Submit</CustomBtn>
                             </div>
                         </div>
                     
