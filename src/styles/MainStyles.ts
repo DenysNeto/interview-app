@@ -8,10 +8,14 @@ justify-content: space-evenly;
 align-items: center;
 width:60rem;
 margin:.5rem;
-
-
-
+background:#ccffff;
 border:1px solid black
+`;
+
+export const DivWithHover = styled.div`
+:hover .inner {
+background :blue;
+}
 `;
 
 export const PCustom = styled.p`
@@ -30,7 +34,7 @@ text-decoration:underline;
 
 export const CommentsContainer = styled.div`
 display:flex;
-padding-top: 3rem;
+padding-top: 1rem;
 flex-direction: column;
 justify-content: center;
 align-items: center;
@@ -46,33 +50,35 @@ display:flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-width: 25rem;
-height:30rem;
+height: auto;
+padding:5rem;
+overflow: hidden;
 border:2px solid grey;
 `;
 
 export const FormContent = styled.div`
 display:flex;
-width: 20rem;
-height:20rem;
+width: 30rem;
 flex-direction: column;
 justify-content: flex-start;
-border:2px solid white;
+border:2px solid grey;
 background:lightpink;
 padding:.5rem;
 `;
 
 export const InputCustom = styled.input`
 height:1.5rem;
+cursor:pointer;
 
 `;
 
 export const MainMenuContainer = styled.div`
-padding:3rem;
 display:flex;
 flex-direction: column;
 align-items:center;
 justify-content: center;
+background-color: #e6ffff;
+padding:3rem;
 
 `;
 
@@ -98,9 +104,11 @@ height:100%
 
 export const ImageCustom = styled.img`
 margin-top: 1rem;
-max-width: 100px;
-max-height:100px;
 border:1px solid black;
+margin-bottom: 1rem;
+max-width:8rem;
+max-height:8rem;
+overflow: hidden;
 `;
 
 export const PictureInput = styled.div`

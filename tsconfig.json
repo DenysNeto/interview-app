@@ -10,7 +10,7 @@
         "strict":                           false,
         "noImplicitAny":                    true,
         "strictNullChecks":                 false,
-        "noUnusedLocals":                   true,
+        "noUnusedLocals":                   false,
         "noUnusedParameters":               true,
         "allowSyntheticDefaultImports":     true,
         "esModuleInterop":                  true,

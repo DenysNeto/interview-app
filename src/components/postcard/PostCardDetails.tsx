@@ -1,30 +1,30 @@
 import { IPostCardDetails } from '../../interfaces/interfaces';
 import React from 'react';
-import { inject, observer } from 'mobx-react';
 // @ts-ignore
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { observer, useLocalStore } from 'mobx-react';
+import { useStore } from '../../stores/RootStore';
 
 const PostCardDetails = ( props: IPostCardDetails ) => {
-    const desc_details = `${new Date(props.timestamp).toLocaleString()} by ${props.username}`;
     
+    const localStore = useLocalStore ( () => ({
+        desc_details: `${new Date ( props.timestamp ).toLocaleString ()} by ${props.username}`,
+    }) );
+    
+    const history        = useHistory ();
+    const store          = useStore ();
     const onClickHandler = () => {
-        props.store.setCurrentIndexComments ( props.index );
+        store.setCurrentIndexComments ( props.index );
     };
     
     return (
-        <div>
+        <div style={{ position: 'relative' }}>
             <h2>{props.title}</h2>
-            <p>{desc_details}</p>
-            <Link to={'/list_comments'}>
-                <p onClick={onClickHandler}>{props.comments_count} comments</p>
-            </Link>
+            <p>{localStore.desc_details}</p>
+            <p>{props.picture_description}</p>
+        
         </div>
     );
 };
 
-export default inject (
-    'store',
-) (
-    observer ( (PostCardDetails) ),
-);
-
+export default observer ( PostCardDetails );

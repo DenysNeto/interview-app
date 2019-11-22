@@ -8,8 +8,18 @@ export interface IProps {
 
 export interface IComments {
     comment: string;
-    rates: number;
-    sub_comments: string[];
+    author: string,
+    timestamp: Date,
+    likes: ILikes;
+    sub_comments: ISubComments[];
+}
+
+export interface ISubComments {
+    likes: ILikes,
+    timestamp: Date,
+    comment: string,
+    author: string,
+    
 }
 
 export interface ICommentsComponent extends IProps {
@@ -18,15 +28,21 @@ export interface ICommentsComponent extends IProps {
 }
 
 export interface IRatesProps extends IProps {
-    likes: number;
     id_prop?: number;
+}
+
+export interface ILikes {
+    count: number;
+    liked: boolean;
+    disliked: boolean;
 }
 
 export interface IPostCardInfo {
     title: string;
     image_link: string;
+    image_comment : string;
     alt_image: string;
-    likes: number,
+    likes: ILikes,
     timestamp: Date,
     username: string;
     comments_count: number;
@@ -44,4 +60,5 @@ export interface IPostCardDetails extends IProps {
     timestamp: Date,
     username: string;
     comments_count: number;
+    picture_description: string
 }

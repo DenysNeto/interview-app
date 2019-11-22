@@ -3,6 +3,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import * as React from 'react';
+import 'semantic-ui-css/semantic.min.css'
 // @ts-ignore
 import Modal from 'react-modal';
 

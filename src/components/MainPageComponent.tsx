@@ -1,45 +1,40 @@
-import { Component } from 'react';
-import { IProps } from '../interfaces/interfaces';
 import * as React from 'react';
 import { map } from 'lodash';
 import PostCardComponent from './postcard/PostCardComponent';
-import { CustomBtn, MainMenuContainer } from '../styles/MainStyles';
-import { inject, observer } from 'mobx-react';
-import { action } from 'mobx';
+import { CustomBtn, MainMenuContainer, PostCardContainer } from '../styles/MainStyles';
+import { observer, useLocalStore } from 'mobx-react';
+import { Route, Switch, useHistory, useRouteMatch } from 'react-router';
+import { useStore } from '../stores/RootStore';
+import ModalCustom from './Modal';
+import Modal_two from './Modal2';
+import { Button, Icon } from 'semantic-ui-react';
 
-class MainPageComponent extends Component<IProps> {
+const MainPageComponent = observer ( ( props ) => {
+    const history    = useHistory ();
+    const store      = useStore ();
+    const storeLocal = useLocalStore (
+        () => ({
+                addComment () {
+                    history.push ( '/add_comment' );
+                },
+            }
+        ), props );
     
-    constructor ( props: any ) {
-        super ( props );
-    }
+    let { path, url } = useRouteMatch ();
     
-    @action
-    addComment = () => {
-        this.props.history.history.push ( '/add_comment' );
-    };
-    
-    render () {
+    return (
+        <MainMenuContainer>
+            <Button color="green" onClick={storeLocal.addComment}>Add Postcard <Icon
+                style={{ paddingLeft: '1rem' }} name='plus'/></Button>
+            <h2>Postcards List</h2>
+            {
+                map ( store.postList, ( elem, index: number ) =>
+                    (<PostCardComponent index={index} key={index} payload={elem}/>),
+                )
+            }
         
-        return (
-            
-            <MainMenuContainer>
-                < CustomBtn onClick={this.addComment}>Add Postcard</CustomBtn>
-                <h2>Postcards List</h2>
-                {
-                    // @ts-ignore
-                    map ( this.props.store.postList, ( elem, index ) =>
-                        (<PostCardComponent history={this.props.history} index={index} key={index} payload={elem}/>),
-                    )
-                }
-                
-            
-            </MainMenuContainer>
-        );
-    }
-}
+        </MainMenuContainer>
+    );
+} );
 
-export default inject (
-    'store',
-) (
-    observer ( (MainPageComponent) ),
-);
+export default MainPageComponent;

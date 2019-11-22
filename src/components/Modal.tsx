@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // @ts-ignore
-import Modal from 'react-modal';
-import { inject, observer } from 'mobx-react';
+
+import { observer, useLocalStore } from 'mobx-react';
 import { IProps } from '../interfaces/interfaces';
-import { CustomBtn } from '../styles/MainStyles';
+import { useStore } from '../stores/RootStore';
+import { Button, Form, Icon, Modal, TextArea } from 'semantic-ui-react';
+
+import { useHistory, useParams } from 'react-router';
+import useQuery from './hooks/useQuery';
 
 interface IModalCustom extends IProps {
     type?: 'sub_comment';
@@ -11,112 +15,116 @@ interface IModalCustom extends IProps {
     id_prop?: number;
 }
 
-const ModalCustom = ( { store, type, comment_id, id_prop }: IModalCustom ) => {
-    let temp_value = '';
+const ModalCustom = (  ) => {
     
-    const onOpenClickHandler  = () => {
-        store.setCurrentIndexComments ( id_prop || 0 );
-        store.setCurrentIndexForSubcomment ( comment_id || 0 );
-        
-        store.setIsModalOpen ( true );
-        
-    };
-    const onCloseClickHandler = () => {
-        store.setIsModalOpen ( false );
-    };
+    const params: any = useParams ();
+    const query: any  = useQuery ();
     
-    const onTextChangeHandler = ( event: any ) => {
-        temp_value = event.target.value;
-        
-    };
     
-    const onSubmitHandler = () => {
-        if ( temp_value ) {
-            store.addComment ( temp_value );
-        }
-        store.setIsModalOpen ( false );
-    };
+    const store   = useStore ();
+    const history = useHistory ();
     
-    const onSubmitSubbuttonHandler = () => {
-        if ( temp_value ) {
-            store.addCommentSubComments ( temp_value, comment_id );
-        }
-        store.setIsModalOpen ( false );
-    };
+    
+    const localStore = useLocalStore ( () =>
+        ({
+            temp_value: '',
+            onOpenClickHandler () {
+              //  store.setCurrentIndexComments ( id_prop || 0 );
+                store.setCurrentIndexForSubcomment ( params.index || 0 );
+                // history.push ( '/main_page/add_comment' );
+                
+            },
+            onCloseClickHandler ( event: any ) {
+                event.preventDefault ();
+                history.goBack ();
+            },
+            onTextChangeHandler ( event: any ) {
+                localStore.temp_value = event.target.value;
+                
+            },
+            onSubmitHandler ( event: any ) {
+                event.preventDefault ();
+                if ( localStore.temp_value ) {
+                    store.addComment ( localStore.temp_value );
+                }
+                history.goBack ();
+            },
+            
+            onSubmitSubbuttonHandler ( event: any ) {
+                event.preventDefault ();
+                if ( localStore.temp_value ) {
+                    store.addCommentSubComments ( localStore.temp_value, params.index );
+                }
+                history.goBack ();
+            },
+        }) );
+    
+    localStore.onOpenClickHandler ();
     
     return (
         <div>
-            <CustomBtn onClick={onOpenClickHandler}>Add Comment</CustomBtn>
             {
-                type ?
-                    
-                    <Modal
-                        style={{
-                            content: {
-                                margin        : '10rem',
-                                marginLeft    : '35rem',
-                                width         : '20rem',
-                                height        : '8rem',
-                                display       : 'flex',
-                                justifyContent: 'center',
-                            },
-                            overlay: {
-                                
-                                backgroundColor: 'papayawhip',
-                            },
-                        }}
-                        ariaHideApp={false}
-                        isOpen={store.isModalOpen}
-                    >
-                        <div style={{ display: 'flex', flexDirection: 'column', width: '20rem' }}>
-                            <label>Enter your comment:</label>
-                            <textarea autoFocus rows={4} onChange={onTextChangeHandler}/>
-                            <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-                                <CustomBtn onClick={onCloseClickHandler}>Cancel</CustomBtn>
-                                <CustomBtn onClick={onSubmitSubbuttonHandler}>Submit</CustomBtn>
+                query.get ( 'type' ) ?
+                    <Modal size={'mini'} open={true}>
+                        <Modal.Header>Add answer</Modal.Header>
+                        <Modal.Content image>
+                            <div style={{ display: 'flex', flexDirection: 'column', width: '20rem' }}>
+                                <Form onSubmit={localStore.onSubmitSubbuttonHandler}>
+                                    <label style={{ marginBottom: '1rem' }}>Enter your answer:</label>
+                                    <TextArea autoFocus rows={4} onChange={localStore.onTextChangeHandler}/>
+                                    <div style={{
+                                        width         : '100%',
+                                        display       : 'flex',
+                                        justifyContent: 'flex-end',
+                                        marginTop     : '1rem',
+                                    }}>
+                                        <Button color='green' onClick={localStore.onCloseClickHandler}>Cancel <Icon
+                                            style={{ marginLeft: '1rem' }}
+                                            name='cancel'/></Button>
+                                        <Button type={'submit'} color='green'>Submit <Icon
+                                            style={{ marginLeft: '1rem' }}
+                                            name='check circle'/></Button>
+                                    </div>
+                                </Form>
                             </div>
-                        </div>
+                        </Modal.Content>
                     </Modal>
-                    
                     :
-                    
-                    <Modal
-                        style={{
-                            content: {
-                                margin        : '10rem',
-                                marginLeft    : '35rem',
-                                width         : '20rem',
-                                height        : '8rem',
-                                display       : 'flex',
-                                justifyContent: 'center',
-                            },
-                            overlay: {
-                                
-                                backgroundColor: 'papayawhip',
-                            },
-                        }}
-                        isOpen={store.isModalOpen}
-                        contentLabel="Example Modal"
-                    >
-                        
-                        <div style={{ display: 'flex', flexDirection: 'column', width: '20rem' }}>
-                            <label>Enter your comment:</label>
-                            <textarea rows={4} autoFocus onChange={onTextChangeHandler}/>
-                            <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-                                <CustomBtn onClick={onCloseClickHandler}>Cancel</CustomBtn>
-                                <CustomBtn onClick={onSubmitHandler}>Submit</CustomBtn>
+                    <Modal size={'mini'} open={true}>
+                        <Modal.Header>Add comment</Modal.Header>
+                        <Modal.Content image>
+                            <div style={{ display: 'flex', flexDirection: 'column', width: '20rem' }}>
+                                <Form onSubmit={localStore.onSubmitHandler}>
+                                    <label style={{ marginBottom: '1rem' }}>Enter your comment:</label>
+                                    <TextArea autoFocus rows={4} onChange={localStore.onTextChangeHandler}/>
+                                    <div style={{
+                                        width         : '100%',
+                                        display       : 'flex',
+                                        justifyContent: 'flex-end',
+                                        marginTop     : '1rem',
+                                    }}>
+                                        <Button color='green' onClick={localStore.onCloseClickHandler}>Cancel <Icon
+                                            style={{ marginLeft: '1rem' }}
+                                            name='cancel'/></Button>
+                                        <Button type={'submit'} color='green'>Submit <Icon
+                                            style={{ marginLeft: '1rem' }}
+                                            name='check circle'/></Button>
+                                    </div>
+                                </Form>
                             </div>
-                        </div>
-                    
+                        </Modal.Content>
                     </Modal>
+                
             }
         
         </div>
+    
     );
 };
 
-export default inject (
-    'store',
-) (
-    observer ( (ModalCustom) ),
-);
+export default observer ( ModalCustom );
+
+
+
+        
+
