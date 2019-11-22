@@ -1,19 +1,37 @@
 ## General
-All the implementation I have done took 7.5 hours:
+it's my interview application which I was proposed to do in 8 hours.
+To run application run in cmd from directory with project 'yarn i' and then 'yarn start'
 
-3 hours - logic implementation with MobX and TypeScript
+Brief :
+There is some mock data in store(for store use Redux/MobX), no connection to BE needed. if the page is refreshed, everything is restored to it's initial state.
 
-1 hour -  building components
+App requirements:
 
-1 hour -  design(Styled Components and inline styles)
+The main screen will list small posts (cards). Each post should display:
+Title
+Image
+submitting Timestamp(localdate)
+submitting username
+Likes(count)
+Likes uo/down ( like/dislike)
 
-0.5 hour - routing
+Available user actions:
 
-1 hour - fixing bugs and logical issues , testing
+when the user opens the app, he should his username(can't be empty) and only after this he will redirect to main page(with all the posts).
 
-0.75 hour - upload image( I didn't use it for a long time and was able to check how to do it).
+The main page should have a botton to allow user to add a post. The button should navigate to a different page with a form for the user to fill in the post's data
+( title, image(uploaded from PC), description). After submitting the form redirects to the main page.
 
-0.25 hour - install node module and all needed packages
+User can add new comment to posts( mocks and his own) and see the numbers of comments. Clicking the button add comment will open a modal with textarea to add new comment. When the user 
+clicks button 'see comments' he will be pushed to a page with list of comments.
+
+If comments has answer user should be able to see this answers and add his own answer for current comment.
+
+User should be able to like/unlike posts, comments and answers to the comments. This action have to trigger changes of a global score. 
+
+Stack: 
+React.js , MobX, React semantic UI, Styled Components, React Router V6, React Hooks
+
 
 
 
